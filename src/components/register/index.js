@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import styles from './styles';
-//import TextInputMask from 'react-native-text-input-mask';
+import TextInputMask from 'react-native-text-input-mask';
 import firebase from '../../../database/firebase';
 import {
     SafeAreaView,
@@ -25,7 +25,7 @@ export default class Register extends React.Component {
         email:'',
         phoneNumber:'',
         password:'',
-
+        
         verifiedEmail: true,
         verifiedPhone: true,
         verifiedPassword: true
@@ -54,15 +54,15 @@ export default class Register extends React.Component {
         this.setState({  password: value, verifiedPassword:false })
       }
     }
-    updateInputValuePhone = (value) => {
+    updateInputValuePhone = (formatted,extracted) => {
       var reg = /^\+?([0-9]{1,3})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{5})$/;//+380 975189156
-      if (reg.test(value) === false) {
+      if (reg.test(extracted) === false) {
         console.log("phoneNumber is Not Correct");
-         this.setState({ phoneNumber: value, verifiedPhone:false })
+         this.setState({ phoneNumber: formatted, verifiedPhone:false })
          return false;
        }
         else {
-        this.setState({ phoneNumber: value, verifiedPhone:true })
+        this.setState({ phoneNumber: formatted, verifiedPhone:true })
     
         console.log("phoneNumber is Correct");
         }
@@ -152,18 +152,17 @@ export default class Register extends React.Component {
 
                 />
         
-                <TextInput
-                   // refInput={ref => { this.input = ref }}
-                  // onChangeText={(formatted, extracted) => {
-                  //   console.log(formatted) // +1 (123) 456-78-90
-                  //   console.log(extracted) // 1234567890
-                  // }}
-                  // mask={"+1 ([000]) [000] [00] [00]"}
+                <TextInputMask
+                //value={this.state.phoneNumber}
+                 style={this.state.verifiedPhone == true ? styles.textInputContainer : styles.invalidTextInputContainer }
+                  refInput={ref => { this.input = ref }}
+                  onChangeText={(formatted, extracted) => this.updateInputValuePhone(formatted,extracted)}
+                  mask={"+[999] ([00]) [000] [00] [00]"}
 
-                placeholder="phone number"
-                style={this.state.verifiedPhone == true ? styles.textInputContainer : styles.invalidTextInputContainer }
-                value={this.state.phoneNumber}
-                onChangeText={(val) => this.updateInputValuePhone(val, 'phoneNumber')}
+                 placeholder={"+1 (55) 225 47 47"}
+                // style={this.state.verifiedPhone == true ? styles.textInputContainer : styles.invalidTextInputContainer }
+                // value={this.state.phoneNumber}
+                // onChangeText={(val) => this.updateInputValuePhone(val, 'phoneNumber')}
                 // mask={"+1 ([000]) [000] [00] [00]"}
 
                 />
