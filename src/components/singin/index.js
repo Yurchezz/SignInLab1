@@ -1,23 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
-
 import {
-  SafeAreaView,
-  StyleSheet,
   ScrollView,
   View,
   Text,
   Alert,
-  StatusBar,
   TextInput,
   Button
 } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import firebase from '../../../database/firebase';
-// import CustomTextInputStyle from './CustomTextInputStyle';
-import { TextField } from 'react-native-material-textfield';
+
 import styles from './styles';
 export default class SingInInput extends React.Component {
   constructor(){
@@ -32,26 +23,27 @@ export default class SingInInput extends React.Component {
   }
 
 
-  updateInputValuePassword = (value) =>{
-    if(value.length >= 8){
-      this.setState({ password: value, verifiedPassword:true })
+  updateInputValuePassword = () =>{
+    if(this.state.password.length >= 8){
+      this.setState({  verifiedPassword:true })
       return false;
     }else{
-      this.setState({  password: value, verifiedPassword:false })
+      this.setState({  verifiedPassword:false })
     }
   }
-    updateInputValueEmail = (value) => {
-    console.log(value);
+    updateInputValueEmail = () => {
+
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (reg.test(value) === false) {
+    if (reg.test(this.state.email) === false) {
       console.log("Email is Not Correct");
-       this.setState({ email: value, verifiedEmail:false })
+      console.log(this.state.email);
+       this.setState({ verifiedEmail:false })
    
        
-       return false;
+
      }
       else {
-      this.setState({ email: value, verifiedEmail:true })
+      this.setState({ verifiedEmail:true })
   
       console.log("Email is Correct");
       }
@@ -98,40 +90,37 @@ export default class SingInInput extends React.Component {
   }
   render(){
     return(
-      <ScrollView>
+       <ScrollView>
+        
         <View style={styles.container}>
         <View  style={styles.sectionTitle}>
           <Text style={styles.header}>
             Welcome to my Perfect App
           </Text>
         </View>
-      <TextInput 
-      placeholder="email"
-      style={this.state.verifiedEmail == true ? styles.textInputContainer : styles.invalidTextInputContainer}
-      value={this.state.email}
-      onChangeText={(val) => this.updateInputValueEmail(val)}
-      //onChangeText={text => onChangeText(text)}
-
-      />
-         <Text style={this.state.verifiedEmail == false ? styles.invalidTextInputBottomMessage : {display:'none'}}>
-                     Email is invalid
-                </Text>
         <TextInput 
-      secureTextEntry={true} 
-      placeholder="password"
-      style={this.state.verifiedPassword == true ? styles.textInputContainer : styles.invalidTextInputContainer}
-      value={this.state.password}
-      onChangeText={(val) => this.updateInputValuePassword(val)}
-      //onChangeText={text => onChangeText(text)}
-
-      />
-       <Text
-       
-       style={this.state.verifiedPassword == false ? styles.invalidTextInputBottomMessage : {display:'none'}}>
+          placeholder="email"
+          style={this.state.verifiedEmail == true ? styles.textInputContainer : styles.invalidTextInputContainer}
+          value={this.state.email}
+          onBlur={() => this.updateInputValueEmail()}
+          onChangeText={(val) => this.updateInputValue(val,'email')}
+        />
+          <Text style={this.state.verifiedEmail == false ? styles.invalidTextInputBottomMessage : {display:'none'}}>
+              Email is invalid
+          </Text>
+        <TextInput 
+          secureTextEntry={true} 
+          placeholder="password"
+          style={this.state.verifiedPassword == true ? styles.textInputContainer : styles.invalidTextInputContainer}
+          value={this.state.password}
+          onBlur={() => this.updateInputValuePassword()}
+          onChangeText={(val) => this.updateInputValue(val,'password')}
+        />
+        <Text style={this.state.verifiedPassword == false ? styles.invalidTextInputBottomMessage : {display:'none'}}>
             Less than 8 characters
-      </Text>
-      <View style={styles.buttonRow}>
-        <View style={styles.buttonStyle}>
+        </Text>
+        <View style={styles.buttonRow}>
+          <View style={styles.buttonStyle}>
         <Button 
            color='#a6c8ff'
            title="Register"
@@ -142,10 +131,11 @@ export default class SingInInput extends React.Component {
         <Button 
            title="Sing In"
            onPress={this.signIn}/>
-           </View>
       </View>
       </View>
-      </ScrollView>
+      </View>
+    
+     </ScrollView>
       );  
     }
 }

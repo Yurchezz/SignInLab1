@@ -36,6 +36,7 @@ const styles= {
     marginLeft: 20,
     //display:'none'
   },
+
   body: {
     backgroundColor: Colors.white,
   },
@@ -54,7 +55,7 @@ const styles= {
     fontWeight: '600',
     color: Colors.black,
   },
-    container: {
+  container: {
     flex: 1,
     display: "flex",
     flexDirection: "column",

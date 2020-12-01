@@ -31,60 +31,28 @@ const Stack = createStackNavigator();
 
 const App = () => (
 
-  // <View>
-  // <StatusBar barStyle="dark-content" />
-  // <SafeAreaView>
-  //   <ScrollView
-  //     contentInsetAdjustmentBehavior="automatic"
-  //     style={styles.scrollView}>
-  //     <Header />
-  //     {global.HermesInternal == null ? null : (
-  //       <View style={styles.engine}>
-  //         <Text style={styles.footer}></Text>
-  //       </View>
-  //     )}
-
-    <NavigationContainer>
+    <NavigationContainer >
       <Stack.Navigator initialRouteName="SingInInput"  
       
       screenOptions={{
         headerTitleAlign: 'center',
         headerStyle: {
           backgroundColor: '#3740FE',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
           fontWeight: 'bold',
-        },
-      }}>
+          },
+        }}>
         <Stack.Screen name="SignIn" component={SingInInput} options={{title: 'Sign In'}}/>
         <Stack.Screen name="Register" component={Register}   />
         <Stack.Screen name="Welcome" component={Welcome}   
-         options={
-         { title: 'Welcome' },
-         {headerLeft: null} 
-       }/>
-      </Stack.Navigator>
-    </NavigationContainer>
-    
-        // {/* <SingInInput/> */}
-
- 
-  //    </ScrollView>
-  // </SafeAreaView> 
-  // </View>
-  )
-
-// export default class App extends React.Component {
-
-//   render (){
-  
-//     return (
-     
-//     );
-//   }
-// }
-
-
+            options={
+            { title: 'Welcome' },
+            { headerLeft: null } 
+          }/>
+        </Stack.Navigator>
+      </NavigationContainer>
+      )
 
  export default App;

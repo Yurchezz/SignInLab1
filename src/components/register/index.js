@@ -3,21 +3,17 @@ import styles from './styles';
 import TextInputMask from 'react-native-text-input-mask';
 import firebase from '../../../database/firebase';
 import {
-    SafeAreaView,
     ScrollView,
     View,
     Text,
-    StatusBar,
     TextInput,
     Button,
     Alert
   } from 'react-native';
 
-  import { NavigationContainer } from '@react-navigation/native';
-  import { createStackNavigator } from '@react-navigation/stack';
-  
 export default class Register extends React.Component {
 
+  
     constructor(){
       super();
       this.state = {
@@ -25,7 +21,8 @@ export default class Register extends React.Component {
         email:'',
         phoneNumber:'',
         password:'',
-        
+        formattedNumber:'',
+        extractedNumber:'',
         verifiedEmail: true,
         verifiedPhone: true,
         verifiedPassword: true
@@ -36,8 +33,8 @@ export default class Register extends React.Component {
       const state = this.state;
       state[prop] = value;
       this.setState(state);
-
     }
+    
     emailStyle = (value) =>{
       if(!value){
         return styles.invalidTextInputContainer;
@@ -46,43 +43,48 @@ export default class Register extends React.Component {
       }
     }
     
-    updateInputValuePassword = (value) =>{
-      if(value.length >= 8){
-        this.setState({ password: value, verifiedPassword:true })
+    updateInputValuePassword = () =>{
+      if(this.state.password.length >= 8){
+        this.setState({  verifiedPassword:true })
         return false;
       }else{
-        this.setState({  password: value, verifiedPassword:false })
+        this.setState({  verifiedPassword:false })
       }
     }
-    updateInputValuePhone = (formatted,extracted) => {
-      var reg = /^\+?([0-9]{1,3})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{5})$/;//+380 975189156
-      if (reg.test(extracted) === false) {
+    updatePhone = () =>{
+      var reg = /^\+?([0-9]{1,3})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{5})$/;
+      if (reg.test(this.state.extractedNumber) === false) {
         console.log("phoneNumber is Not Correct");
-         this.setState({ phoneNumber: formatted, verifiedPhone:false })
+         this.setState({ phoneNumber: this.state.formattedNumber, verifiedPhone:false })
          return false;
        }
         else {
-        this.setState({ phoneNumber: formatted, verifiedPhone:true })
+        this.setState({ phoneNumber: this.state.formattedNumber, verifiedPhone:true })
     
         console.log("phoneNumber is Correct");
         }
     }
-    updateInputValueEmail = (value) => {
-      console.log(value);
+
+    updateInputValuePhone = (formatted,extracted) => {
+      this.setState({ formattedNumber: formatted, extractedNumber:extracted })
+    }
+
+    updateInputValueEmail = () => {
+      console.log(this.state.email);
       let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      if (reg.test(value) === false) {
+      if (reg.test(this.state.email) === false) {
         console.log("Email is Not Correct");
-         this.setState({ email: value, verifiedEmail:false })
+         this.setState({  verifiedEmail:false })
          return false;
        }
         else {
-        this.setState({ email: value, verifiedEmail:true })
+        this.setState({  verifiedEmail:true })
     
         console.log("Email is Correct");
         }
     }
-    registerUser = () =>{
 
+    registerUser = () =>{ 
       if(this.state.email === '' || this.state.password === '' || this.state.displayName === '' || this.state.phoneNumber === '' ) {
         Alert.alert('Enter details to signup!')
       }else if(this.state.verifiedEmail == false || this.state.verifiedPassword == false || this.state.verifiedPassword == false  ){
@@ -95,20 +97,14 @@ export default class Register extends React.Component {
           res.user.updateProfile({
             displayName: this.state.displayName,
             
-          })
-
-          // res.user.updatePhoneNumber(this.state.phoneNumber);  
+          });
+      
           setTimeout( () => {
             firebase
             .auth()
             .signInWithEmailAndPassword(this.state.email, this.state.password)
             this.props.navigation.navigate('Welcome')},1000);
-         
-          
           console.log('User account created & signed in!');
-    
-      
-          // this.props.navigation.navigate('SignIn'); 
         })
         .catch(error => {
           if (error.code === 'auth/email-already-in-use') {
@@ -137,7 +133,8 @@ export default class Register extends React.Component {
                 placeholder="email"
                 style={this.state.verifiedEmail == true ? styles.textInputContainer : styles.invalidTextInputContainer }
                 value={this.state.email}
-                onChangeText={(val) => this.updateInputValueEmail(val, this)}
+                onBlur={() => this.updateInputValueEmail()}
+                onChangeText={(val) => this.updateInputValue(val, 'email')}
              
                 />
                   <Text style={this.state.verifiedEmail == false ? styles.invalidTextInputBottomMessage : {display:'none'}}>
@@ -156,6 +153,7 @@ export default class Register extends React.Component {
                 //value={this.state.phoneNumber}
                  style={this.state.verifiedPhone == true ? styles.textInputContainer : styles.invalidTextInputContainer }
                   refInput={ref => { this.input = ref }}
+                  onBlur={() => this.updatePhone()}
                   onChangeText={(formatted, extracted) => this.updateInputValuePhone(formatted,extracted)}
                   mask={"+[999] ([00]) [000] [00] [00]"}
 
@@ -173,7 +171,8 @@ export default class Register extends React.Component {
                 placeholder="password"
                 style={this.state.verifiedPassword == true ? styles.textInputContainer : styles.invalidTextInputContainer}
                 value={this.state.password}
-                onChangeText={(val) => this.updateInputValuePassword(val, 'password')}
+                onBlur={() => this.updateInputValuePassword()}
+                onChangeText={(val) => this.updateInputValue(val, 'password')}
      
 
                 />
