@@ -1,58 +1,48 @@
-
 import 'react-native-gesture-handler';
-import React, {Component} from 'react';
-import styles from './styles'
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  TextInput,
-  Button
-} from 'react-native';
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import React from 'react';
 import SingInInput from './components/singin';
 import Register from './components/register';
-import Welcome from './components/welcome'
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-
+import Welcome from './components/welcome';
+import Orders from './components/orders';
+import AddOrder from './components/addOrder';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
-
 const App = () => (
-
-    <NavigationContainer >
-      <Stack.Navigator initialRouteName="SingInInput"  
-      
+  <NavigationContainer>
+    <Stack.Navigator
+      initialRouteName="SignIn"
       screenOptions={{
         headerTitleAlign: 'center',
         headerStyle: {
           backgroundColor: '#3740FE',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
           fontWeight: 'bold',
-          },
-        }}>
-        <Stack.Screen name="SignIn" component={SingInInput} options={{title: 'Sign In'}}/>
-        <Stack.Screen name="Register" component={Register}   />
-        <Stack.Screen name="Welcome" component={Welcome}   
-            options={
-            { title: 'Welcome' },
-            { headerLeft: null } 
-          }/>
-        </Stack.Navigator>
-      </NavigationContainer>
-      )
+        },
+      }}>
+      <Stack.Screen
+        name="SignIn"
+        component={SingInInput}
+        options={{title: 'Sign In'}}
+      />
+      <Stack.Screen name="Register" component={Register} />
+      <Stack.Screen
+        name="Welcome"
+        component={Welcome}
+        options={({title: 'Welcome'}, {headerLeft: null})}
+      />
+      <Stack.Screen name="Orders" component={Orders} />
+      <Stack.Screen
+        name="AddOrder"
+        component={AddOrder}
+        options={{title: 'Specify order fields'}}
+      />
+    </Stack.Navigator>
+  </NavigationContainer>
+);
 
- export default App;
+export default App;

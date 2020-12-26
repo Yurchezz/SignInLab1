@@ -5,18 +5,32 @@ const styles = {
     backgroundColor: Colors.lighter,
   },
   textInputContainer: {
-    padding: 6,
-    backgroundColor: '#edfafc',
-    height: 44,
-    borderTopColor: '#7e7e7e',
-    borderBottomColor: '#b5b5b5',
-    flexDirection: 'row',
-    margin: 20,
+    width: '90%',
+    marginBottom: 15,
+    paddingBottom: 15,
+    alignSelf: 'center',
+    borderColor: '#0113C1',
+    borderBottomWidth: 1,
   },
   engine: {
     position: 'absolute',
     right: 0,
   },
+  invalidTextInputContainer: {
+    width: '90%',
+    marginBottom: 15,
+    paddingBottom: 15,
+    alignSelf: 'center',
+    borderColor: '#FF0000',
+    borderBottomWidth: 2,
+  },
+  invalidTextInputBottomMessage: {
+    width: '90%',
+    color: '#FF0000',
+    marginLeft: 20,
+    //display:'none'
+  },
+
   body: {
     backgroundColor: Colors.white,
   },
@@ -25,9 +39,24 @@ const styles = {
     paddingHorizontal: 24,
   },
   sectionTitle: {
+    width: '100%',
+
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  header: {
     fontSize: 24,
     fontWeight: '600',
     color: Colors.black,
+  },
+  container:{
+    height:'100%'
+  },
+  darkBackground:{
+    backgroundColor: '#000',
+  },
+  lightBackground:{
+    backgroundColor: '#fff',
   },
   sectionDescription: {
     marginTop: 8,
@@ -55,5 +84,17 @@ const styles = {
   buttonStyle: {
     width: '40%',
   },
+  lightButton: {
+    backgroundColor: '#3740FE',
+  },
+  darkButton: {
+    backgroundColor: '#6200EE',
+  },
+  floatingAction:{
+          
+                                        
+    position: 'absolute',                                          
+ 
+  }
 };
 export default StyleSheet.create(styles);

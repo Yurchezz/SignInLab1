@@ -1,42 +1,36 @@
-import {
-  StyleSheet,
- 
-} from 'react-native';
-import {
-  Colors
-
-} from 'react-native/Libraries/NewAppScreen';
-const styles= {
+import {StyleSheet} from 'react-native';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+const styles = {
   scrollView: {
     backgroundColor: Colors.lighter,
   },
   container: {
     flex: 1,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
     padding: 15,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   textInputContainer: {
     width: '90%',
     marginBottom: 15,
     paddingBottom: 15,
-    alignSelf: "center",
-    borderColor: "#0113C1",
-    borderBottomWidth: 2
+    alignSelf: 'center',
+    borderColor: '#0113C1',
+    borderBottomWidth: 2,
   },
   invalidTextInputContainer: {
     width: '90%',
     marginBottom: 15,
     paddingBottom: 15,
-    alignSelf: "center",
-    borderColor: "#FF0000",
-    borderBottomWidth: 2
+    alignSelf: 'center',
+    borderColor: '#FF0000',
+    borderBottomWidth: 2,
   },
-  invalidTextInputBottomMessage:{
+  invalidTextInputBottomMessage: {
     width: '90%',
-    color: "#FF0000",
+    color: '#FF0000',
     marginLeft: 20,
     //display:'none'
   },
@@ -52,12 +46,12 @@ const styles= {
     paddingHorizontal: 24,
   },
   sectionTitle: {
-    width:'100%',
-   
-    flexDirection:'row',
-    justifyContent:'center'
+    width: '100%',
+
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
-  header:{
+  header: {
     fontSize: 24,
     fontWeight: '600',
     color: Colors.black,
@@ -79,15 +73,14 @@ const styles= {
     paddingRight: 12,
     textAlign: 'right',
   },
-  buttonRow:{
-      margin:20,
-       
-      flexDirection:'row',
-      justifyContent: 'center'
-  },
-  buttonStyle:{
-      width:'80%',
+  buttonRow: {
+    margin: 20,
 
-  }
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  buttonStyle: {
+    width: '80%',
+  },
 };
 export default StyleSheet.create(styles);

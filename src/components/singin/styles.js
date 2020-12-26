@@ -82,13 +82,12 @@ const styles= {
   },
   buttonRow:{
       margin:20,
-       
       flexDirection:'row',
       justifyContent: 'space-between'
   },
   buttonStyle:{
-      width:'40%',
 
+      width:'100%'
   }
 };
 export default StyleSheet.create(styles);
