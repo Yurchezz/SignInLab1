@@ -2,13 +2,13 @@
 import * as firebase from '../node_modules/firebase';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBNapODTHs4Wh85GD3PnYmIoVU_d_-0VOA",
-    authDomain: "mobile-db-28019.firebaseapp.com",
-    databaseURL: "https://mobile-db-28019.firebaseio.com",
-    projectId: "mobile-db-28019",
-    storageBucket: "mobile-db-28019.appspot.com",
-    messagingSenderId: "441972156312",
-    appId: "1:441972156312:web:70880f12828709a7dceded"
+    apiKey: "Дай помацати сало",
+    authDomain: "Дай помацати сало",
+    databaseURL: "Дай помацати сало",
+    projectId: "Дай помацати сало",
+    storageBucket: "Дай помацати сало",
+    messagingSenderId: "Дай помацати сало",
+    appId:"Дай помацати сало"
   };
 
 
